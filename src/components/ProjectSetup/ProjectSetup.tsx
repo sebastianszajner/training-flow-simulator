@@ -113,6 +113,7 @@ export default function ProjectSetup() {
         importProject(reader.result as string);
       } catch (err) {
         console.error('Import failed:', err);
+        alert(`Import failed: ${err instanceof Error ? err.message : 'Invalid JSON file'}`);
       }
     };
     reader.readAsText(file);
@@ -161,7 +162,9 @@ export default function ProjectSetup() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      deleteProject(p.id);
+                      if (window.confirm(`Delete "${p.title}"? This cannot be undone.`)) {
+                        deleteProject(p.id);
+                      }
                     }}
                     className="opacity-0 group-hover:opacity-100 p-1.5 rounded-md hover:bg-red-600/20 text-slate-500 hover:text-red-400 transition-all cursor-pointer"
                     title="Delete project"

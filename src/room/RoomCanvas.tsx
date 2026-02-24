@@ -54,6 +54,8 @@ interface DragState {
   startMouseY: number;
   startObjX: number;
   startObjY: number;
+  currentX?: number;
+  currentY?: number;
 }
 
 // ── Drawing helpers ──────────────────────────────────────────────────────────
@@ -481,6 +483,8 @@ export default function RoomCanvas({
     startMouseY: 0,
     startObjX: 0,
     startObjY: 0,
+    currentX: undefined,
+    currentY: undefined,
   });
   const animFrameRef = useRef<number>(0);
 
@@ -566,11 +570,21 @@ export default function RoomCanvas({
     }
     ctx.restore();
 
+    // Apply drag offset: if an object is being dragged, use the ref position
+    const drag = dragRef.current;
+    const resolveObj = (o: RoomObject): RoomObject => {
+      if (drag.active && drag.objectId === o.id && drag.currentX !== undefined && drag.currentY !== undefined) {
+        return { ...o, x: drag.currentX, y: drag.currentY };
+      }
+      return o;
+    };
+
     // Draw objects — zones first (background), then rest
     const zones = room.objects.filter((o) => o.type === 'zone');
     const nonZones = room.objects.filter((o) => o.type !== 'zone');
 
-    for (const obj of zones) {
+    for (const raw of zones) {
+      const obj = resolveObj(raw);
       ctx.save();
       if (obj.rotation) {
         const cx = obj.x + obj.width / 2;
@@ -584,7 +598,8 @@ export default function RoomCanvas({
       ctx.restore();
     }
 
-    for (const obj of nonZones) {
+    for (const raw of nonZones) {
+      const obj = resolveObj(raw);
       ctx.save();
       if (obj.rotation) {
         const cx = obj.x + obj.width / 2;
@@ -719,15 +734,11 @@ export default function RoomCanvas({
       const newX = Math.max(0, Math.min(room.width, drag.startObjX + dx));
       const newY = Math.max(0, Math.min(room.height, drag.startObjY + dy));
 
-      // Update object position directly for visual feedback
-      // (final commit happens on mouseup)
-      const obj = room.objects.find((o) => o.id === drag.objectId);
-      if (obj) {
-        obj.x = newX;
-        obj.y = newY;
-      }
+      // Store current drag position in ref (no mutation of store objects)
+      drag.currentX = newX;
+      drag.currentY = newY;
     },
-    [interactive, room.objects, room.width, room.height, getMousePos],
+    [interactive, room.width, room.height, getMousePos],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -735,10 +746,8 @@ export default function RoomCanvas({
     const drag = dragRef.current;
     if (!drag.active || !drag.objectId) return;
 
-    const obj = room.objects.find((o) => o.id === drag.objectId);
-    if (obj) {
-      onMoveObject?.(drag.objectId, obj.x, obj.y);
-    }
+    // Commit final position to store immutably via callback
+    onMoveObject?.(drag.objectId, drag.currentX ?? drag.startObjX, drag.currentY ?? drag.startObjY);
 
     dragRef.current = {
       active: false,
@@ -747,8 +756,10 @@ export default function RoomCanvas({
       startMouseY: 0,
       startObjX: 0,
       startObjY: 0,
+      currentX: undefined,
+      currentY: undefined,
     };
-  }, [interactive, room.objects, onMoveObject]);
+  }, [interactive, onMoveObject]);
 
   // ── Cursor ─────────────────────────────────────────────────────────────
 

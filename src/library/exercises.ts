@@ -706,7 +706,57 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     tags: ['recap', 'closing', 'transfer', 'reflection', 'commitment'],
   },
 
-  // ── BONUS EXERCISES (2 extra for 30 total) ─────────────────────────────
+  // ── ADDITIONAL EXERCISES (filling demo gaps) ───────────────────────────
+
+  {
+    id: 'pairs-prompt-engineering-practice',
+    title: 'Prompt Engineering Pair Practice',
+    type: 'pairs',
+    description: 'Each person writes 3 AI prompts for real work tasks, then pairs compare results and refine. Best prompts shared with the group.',
+    time_range_min: 20,
+    time_range_max: 40,
+    participant_range_min: 4,
+    participant_range_max: 24,
+    requires_tables: true,
+    requires_flipchart_count: 0,
+    requires_screen: true,
+    dynamics: 'medium',
+    facilitator_steps: [
+      'Distribute prompt cheat-sheet and explain RCTF framework (3 min)',
+      'Individual work: each person writes 3 prompts for their real tasks (8 min)',
+      'Pairs: compare prompts, test in AI tool, refine together (10 min)',
+      'Each pair selects their best prompt to share with the group',
+      'Plenary: 3-4 pairs present, facilitator highlights patterns',
+    ],
+    workbook_link: '#prompt-engineering-practice',
+    tags: ['AI', 'prompt-engineering', 'pairs', 'practice', 'digital'],
+  },
+
+  {
+    id: 'groups-world-cafe',
+    title: 'World Café',
+    type: 'groups',
+    description: 'Rotating group discussion at themed stations. Groups visit each station for 15 min, building on previous groups\' ideas. Table hosts synthesize.',
+    time_range_min: 30,
+    time_range_max: 60,
+    participant_range_min: 9,
+    participant_range_max: 30,
+    requires_tables: true,
+    requires_flipchart_count: 3,
+    requires_screen: false,
+    dynamics: 'medium',
+    facilitator_steps: [
+      'Set up 3-4 themed stations with A1 paper and markers',
+      'Assign a table host per station who stays and summarizes',
+      'Groups rotate every 12-15 min (use timer/bell)',
+      'Table hosts brief each new group on previous insights',
+      'Final round: table hosts present consolidated findings (3 min each)',
+    ],
+    workbook_link: '',
+    tags: ['groups', 'facilitation', 'world-cafe', 'collaboration', 'strategy'],
+  },
+
+  // ── BONUS EXERCISES (2 extra) ─────────────────────────────────────────
 
   {
     id: 'pairs-challenger-sale-practice',

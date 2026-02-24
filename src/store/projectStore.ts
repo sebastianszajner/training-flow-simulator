@@ -833,8 +833,19 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
         };
       }
 
+      // Determine base_minutes:
+      // - With assigned exercise: use exercise time range midpoint
+      // - Without exercise: use window_minutes as-is (trainer set this intentionally)
+      let base = block.window_minutes;
+      if (block.exercise_id) {
+        const exercise = getExerciseById(block.exercise_id);
+        if (exercise) {
+          base = Math.round((exercise.time_range_min + exercise.time_range_max) / 2);
+        }
+      }
+
       const estimate = estimateBlockTime({
-        base_minutes: block.window_minutes,
+        base_minutes: base,
         experience_level: project.experience_level,
         participant_count: project.participant_count,
         method: block.type,
@@ -857,3 +868,31 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
     });
   },
 }));
+
+// ── Autosave: debounced save on project changes ─────────────────────────
+
+let autosaveTimer: ReturnType<typeof setTimeout> | null = null;
+let lastProjectId: string | null = null;
+
+useProjectStore.subscribe((state) => {
+  const project = state.project;
+  if (!project) {
+    lastProjectId = null;
+    return;
+  }
+
+  // Track project identity to avoid saving during initial load
+  if (lastProjectId !== project.id) {
+    lastProjectId = project.id;
+  }
+
+  if (autosaveTimer) clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(() => {
+    const current = useProjectStore.getState().project;
+    if (current) {
+      storage.save({ ...current, updated_at: new Date().toISOString() }).then(() => {
+        useProjectStore.getState().loadProjectList();
+      });
+    }
+  }, 1500);
+});

@@ -94,7 +94,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 2. Contract — 15 min
     block(2, 'contract', 'Team Contract', 15, {
-      exercise_id: 'contract-team-canvas',
+      exercise_id: 'contract-group-norms',
       method:
         'Co-create a working agreement using Team Canvas. Groups propose rules, then the whole team votes on the final set.',
       facilitator_notes:
@@ -105,7 +105,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 3. Lecture: Core AI Concepts — 50 min
     block(3, 'lecture', 'What is AI? Core Concepts', 50, {
-      exercise_id: 'lecture-interactive-mini',
+      exercise_id: 'lecture-ai-prompt-engineering',
       method:
         'Interactive mini-lecture with 3 knowledge-check questions embedded. Covers: AI vs ML vs GenAI, how LLMs work (simplified), capabilities and limitations.',
       facilitator_notes:
@@ -122,7 +122,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 5. Pairs: Prompt Engineering Practice — 40 min
     block(5, 'pairs', 'Prompt Engineering Practice', 40, {
-      exercise_id: 'pairs-think-pair-share',
+      exercise_id: 'pairs-prompt-engineering-practice',
       method:
         'Think-Pair-Share: each person writes 3 prompts for their real work tasks (Think), then pairs compare results and refine (Pair), then best prompts are shared with group (Share).',
       facilitator_notes:
@@ -134,7 +134,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 6. Groups: AI Use Case Mapping — 50 min
     block(6, 'groups', 'AI Use Case Mapping', 50, {
-      exercise_id: 'groups-case-study-analysis',
+      exercise_id: 'groups-ai-use-case-mapping',
       method:
         'In groups of 3-4, participants analyze real department workflows and identify where AI can add value. Each group maps use cases on an Impact/Effort matrix and selects their top 3.',
       facilitator_notes:
@@ -151,7 +151,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 8. Energizer — 15 min
     block(8, 'energizer', 'Human Rock-Paper-Scissors', 15, {
-      exercise_id: 'energizer-human-rock-paper-scissors',
+      exercise_id: 'energizer-stand-up-sit-down',
       method:
         'Full-body rock-paper-scissors tournament. Losers become cheerleaders for the winner. Continues until a champion emerges.',
       facilitator_notes:
@@ -162,7 +162,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 9. Video + Debrief: AI in Action — 35 min
     block(9, 'video_debrief', 'AI in Action — Case Study', 35, {
-      exercise_id: 'video-case-study-documentary',
+      exercise_id: 'video-debrief-ai-demo',
       method:
         'Watch a 10-min documentary-style video showing AI implementation at a similar company. Follow with structured debrief: What surprised you? What applies to us? What concerns do you have?',
       facilitator_notes:
@@ -173,7 +173,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 10. Workbook: AI Workflow Design — 30 min
     block(10, 'workbook', 'AI Workflow Design', 30, {
-      exercise_id: 'workbook-reflection-journal',
+      exercise_id: 'workbook-action-plan',
       method:
         'Individual workbook exercise: participants sketch their ideal AI-enhanced workflow using a structured template. Covers: current process, AI touchpoints, expected time savings, risks.',
       facilitator_notes:
@@ -202,7 +202,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 13. Recap Module — 20 min
     block(13, 'recap_module', 'Module Recap — One Word Checkout', 20, {
-      exercise_id: 'recap-module-one-word-checkout',
+      exercise_id: 'recap-module-3-key-takeaways',
       method:
         'Each participant shares one word that captures their key takeaway from the implementation planning module. Facilitator groups words into themes on a flipchart.',
       facilitator_notes:
@@ -213,7 +213,7 @@ function createDemoBlocks(): AgendaBlock[] {
 
     // 14. Recap Day — 50 min
     block(14, 'recap_day', 'Day Recap — Gallery Walk', 50, {
-      exercise_id: 'recap-day-gallery-walk',
+      exercise_id: 'recap-day-one-word-checkout',
       method:
         'All flipcharts and outputs from the day are displayed as a gallery. Participants walk through, add comments on sticky notes, and vote for the most impactful idea with dot stickers.',
       facilitator_notes:
